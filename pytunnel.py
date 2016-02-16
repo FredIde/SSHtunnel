@@ -3,10 +3,8 @@ import argparse
 from time import sleep
 
 '''
-Python SSH Tunnel Utility
+Python SSH Tunnel Utility - E. Bullen Feb 2016
 Wrapper around **sshtunnel** - see https://github.com/pahaz/sshtunnel/
-pip install sshtunnel
-E. Bullen Feb 2016
 
 sshtunnel has dependancies on
     paramiko
@@ -14,13 +12,14 @@ sshtunnel has dependancies on
     pycrypto
     
 General useage:
-    pytunnel -c config.file | -u <ssh user> -s <remote server host-name/IP-addr> -l <localport>  -r <remoteport> [ -k <sshkey> ]
+    pytunnel -s <remote server host-name/IP-addr> -l <localport>  -r <remoteport> [ -k <sshkey> ] [ -u <ssh user> ] [-p <ssh port>] 
     
-    sshkey defaults to SSHKEY
+    sshkey defaults to ./key.priv if not specified
     user defaults to ORACLE
       
-# Windows command-line example for calling the sshtunnel module directly:
-#PS D:\sugarsync\git\python\SSHtunnel> python -m sshtunnel -U oracle -K D:/Oracle/Cloud/testkey/rsa.priv -L :1521 -R 127.0.0.1:1521 -p 22 129.152.150.7
+> Windows command-line example for calling the sshtunnel module directly <
+python -m sshtunnel -U oracle -K D:/Oracle/Cloud/testkey/rsa.priv -L :1521 -R 127.0.0.1:1521 -p 22 129.152.150.7
+
 '''
 
 
@@ -33,7 +32,7 @@ def defaultconfig():
     global SSHUSER
     SSHUSER = "oracle"
     global SSHKEY
-    SSHKEY = "./rsa.priv"
+    SSHKEY = "./key.priv"
     global CNAME
     CNAME = "./pytunnel.conf"
 
@@ -47,9 +46,9 @@ def parseargs():
     parser.add_argument('-s', '--server', help='remote Server host-name or IP address', required=True)
     parser.add_argument('-l', '--localport', help='local TCP port', required=True)
     parser.add_argument('-r', '--remoteport', help='remote TCP port', required=True)
-    parser.add_argument('-k', '--sshkey', help='path to private key file', required=False)
-    parser.add_argument('-u', '--sshuser', help='SSH user', required=False)
-    parser.add_argument('-p', '--sshport', help='SSH port', required=False)
+    parser.add_argument('-k', '--sshkey', help='path to private key file - default='+ SSHKEY, required=False)
+    parser.add_argument('-u', '--sshuser', help='SSH user - default=' + SSHUSER, required=False)
+    parser.add_argument('-p', '--sshport', help='SSH port - default='+ str(SSHPORT), required=False)
         
     args = parser.parse_args()
 
@@ -75,10 +74,6 @@ def parseargs():
         sshport = SSHPORT
     
     return sshuser, localport, remotehost, remoteport, privatekey, sshuser, sshport
-
-def validate():
-    pass
-
 
 if __name__ == '__main__':
     
