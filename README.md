@@ -49,6 +49,16 @@ D:\pytunnel> pytunnel.exe -s 10.10.0.1 -l 1521 -r 1521 -k D:\Oracle\Cloud\testke
   Control-C to stop local-host tunnel on port 1521 to 10.10.0.1:1521
 ```
 
+For multiple SSH tunnels just run more command-window sessions with different ports (i.e. create a tunnel for port 5500 to allow access to the Enterprise Manager web-console).
+
+Example connecting to remote database server on Oracle Cloud instance using Windows SQL*Plus EZConnect string - assumes tunnel has been created in a separate Window, as per example above:
+
+```
+C:> sqlplus system/Welcome1@localhost:1521/mydb.metcsgse00453.oraclecloud.internal
+``` 
+
+Where ```mydb.metcsgse00453.oraclecloud.internal``` is the Service Name registered with the remote database server, with listener on Port 1521, running at the end of the tunnel set up previously.
+
 ## Source Code for the Wrapper ##
 
 Is here:
