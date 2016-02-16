@@ -16,14 +16,21 @@ General useage:
     
     sshkey defaults to ./key.priv if not specified
     user defaults to ORACLE
+    
+Example - tunnel port 1521 from local host to 1521 at 129.152.150.7 over SSH with oracle user:
+
+$> python pytunnel.py -s 129.152.150.7 -l 1521 -r 1521 -k D:\Oracle\Cloud\testkey\rsa.priv
+>  Server Bound to Local Port: 1521
+>  Control-C to stop local-host tunnel on port 1521 to 129.152.150.7:1521
       
-> Windows command-line example for calling the sshtunnel module directly <
+Windows command-line example for calling the sshtunnel module directly >> Without using this wrapper <<
 python -m sshtunnel -U oracle -K D:/Oracle/Cloud/testkey/rsa.priv -L :1521 -R 127.0.0.1:1521 -p 22 129.152.150.7
 
 '''
 
 
 def fileexists(fname):
+    #ToDo
     pass
 
 def defaultconfig():
@@ -81,7 +88,6 @@ if __name__ == '__main__':
     sshuser, localport, remotehost, remoteport, privatekey, sshuser, sshport = parseargs()
      
     #fileexists(privatekey)    
-    #validate()
     
     try:
         server = SSHTunnelForwarder(
