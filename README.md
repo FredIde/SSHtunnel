@@ -69,7 +69,7 @@ optional arguments:
 Example tunnelling port 1521 from local host to 1521 at 10.10.0.1 over SSH with oracle user:
 
 ```
-D:\pytunnel> pytunnel.exe -s 10.10.0.1 -l 1521 -r 1521 -k D:\Oracle\Cloud\testkey\rsa.priv
+D:\pytunnel> pytunnel.exe cmd -s 10.10.0.1 -l 1521 -r 1521 -k D:\Oracle\Cloud\testkey\rsa.priv
   Server Bound to Local Port: 1521
   Control-C to stop local-host tunnel on port 1521 to 10.10.0.1:1521
 ```
