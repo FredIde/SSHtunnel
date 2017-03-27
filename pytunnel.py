@@ -8,13 +8,16 @@ import configparser
 """
 Python SSH Tunnel Utility 1.1 - E. Bullen Feb 2016
 Wrapper around **sshtunnel** - see https://github.com/pahaz/sshtunnel/
+Written for Python 3.5
 
-Written for Python 3.3
+   1.2 updates:  
+       Add set_keepalive parameter, 
+       update to Python 3.5
 
 sshtunnel has dependancies on
     paramiko
     ecdsa
-    pycrypto
+    pycrypto   # See https://github.com/sfbahr/PyCrypto-Wheels for tips for installing on Windows
     
 General usage:
     
@@ -180,6 +183,7 @@ if __name__ == '__main__':
                 (binding["server"], int(binding["sshport"])), 
                     ssh_username = binding["sshuser"],
                     #ssh_password="",
+                    set_keepalive = 60,
                     ssh_private_key = binding["sshkey"],
                     local_bind_address=('127.0.0.1', int(binding["localport"])),
                     remote_bind_address=('127.0.0.1', int(binding["remoteport"]) )
