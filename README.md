@@ -1,21 +1,27 @@
-## pytunnel SSH Tunnel utility for Windows 7 ##
+## pytunnel SSH Tunnel utility for Windows 7 and Mac OS ##
 
-Utility to simplify setting up SSH tunnels in a Windows environment.  This is an easier alternative to [using Putty to create SSH tunnels](http://howto.ccs.neu.edu/howto/windows/ssh-port-tunneling-with-putty/).  A single Windows cmd.exe window session can open multiple SSH-tunnel ports driven off a config file.
+Utility to simplify setting up SSH tunnels in a Windows or Mac OS environment.  For Windows this is an easier alternative to [using Putty to create SSH tunnels](http://howto.ccs.neu.edu/howto/windows/ssh-port-tunneling-with-putty/).    
 
-Functionality is provided by the Python modules [Paramiko](http://www.paramiko.org/) and [sshtunnel](https://github.com/pahaz/sshtunnel/) and bundled up in this utility to make it easy to use from the command-line as well a compiled binary version for Windows 7.  This means Windows users don't need to install Python to use this.
+A single Windows cmd.exe window or Mac terminal session can open multiple SSH-tunnel ports driven off a config file.   
 
-The utility requires a suitable Private SSH Key to reference and a suitable Open SSH Server needs to be configured at the remote server end with the associated Public Key.
+Functionality is provided by the Python modules [Paramiko](http://www.paramiko.org/) and [sshtunnel](https://github.com/pahaz/sshtunnel/) and bundled up in this utility to make it easy to use from the command-line. A compiled binary version for Windows 7 and Mac OS 10.7 is also provided.  This means Windows users don't need to install Python to use this.
 
-## Install and Run the Windows EXE version ##
+The utility requires a suitable Private SSH Key to reference and an SSH Server needs to be configured at the remote server end with the associated Public Key (such as a default Oracle public cloud configuration).
+
+## Install and Run the Windows EXE / Mac Binary version ##
 
 Download the latest zip-release of the pytunnel utility. See the **release** tab in this repository or go to this link:
 https://github.com/edbullen/SSHtunnel/releases
 
-+ Download the pytunnel.zip file
-+ Extract the ZIP archive to a suitable location on the PC
-+ in a Windows CMD.EXE window or Windows PowerShell window change directory to the extracted pytunnel directory / "folder"
-+ Review usage instructions and defaults:
++ Download the latest pytunnel.zip file for Windows / pytunnel.MAC.tar.gz for Mac
++ Extract the ZIP archive to a suitable location
++ Either set the PATH or reference the full path location to the pytunnel.exe file to run the utility
  
+**Known Issues**
+
+This utility doesn't work with port 443.
+
+
 View **help for operation modes**:  
 ```
 pytunnel -h
@@ -64,7 +70,7 @@ optional arguments:
 
 ```  
 
-#### Example - Single Port, Specify Options on Command-Line ####
+#### Oracle Database Example - Single Port, Specify Options on Command-Line ####
 
 Example tunnelling port 1521 from local host to 1521 at 10.10.0.1 over SSH with oracle user:
 
@@ -73,6 +79,19 @@ D:\pytunnel> pytunnel.exe cmd -s 10.10.0.1 -l 1521 -r 1521 -k D:\Oracle\Cloud\te
   Server Bound to Local Port: 1521
   Control-C to stop local-host tunnel on port 1521 to 10.10.0.1:1521
 ```
+
+#### MySQL Database Example - Single Port, Specify Options on Command-Line ####
+
+Example tunnelling port 3306 from local host to 3306 at 10.10.0.1 over SSH with oracle user:
+
+```
+D:\pytunnel> pytunnel.exe cmd -s 10.10.0.1 -l 3306 -r 3306 -k D:\Oracle\Cloud\testkey\rsa.priv
+  Server Bound to Local Port: 3306
+  Control-C to stop local-host tunnel on port 3306 to 10.10.0.1:1521
+```
+
+MySQL users connecting from the host running the pytunnel client will now connect to the remote MySQL server authenticated as `'user'@'localhost'`
+
 
 #### Example - Multiple Ports, run Pre-Defined Configuration ####
 
